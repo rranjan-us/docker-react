@@ -6,3 +6,16 @@ before_install:
 
 script:
   - docker run ranjanra/docker-react npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "arn:aws:s3:::elasticbeanstalk-us-east-1-817730592313"
+  bucket_path: "docker-react"
+  on: 
+    branch: master
+  access_key_id: $deploy-key
+  secret_access_key:
+    secure: "$deploy-secret"
